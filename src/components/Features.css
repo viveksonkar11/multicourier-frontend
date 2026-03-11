@@ -1,0 +1,55 @@
+.compact-stats-only {
+  background: #ffffff;
+  padding: 40px 10%; /* Extra padding hata di gayi hai */
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  margin-top: -10px; /* Isse stats upar ki image se chipak kar aayenge */
+}
+
+.stats-inline-wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.stat-blue-text {
+  color: #0056b3; /* Aapka brand blue color */
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.stat-label-gray {
+  font-size: 12px;
+  color: #444;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ====================================================== */
+/* RESPONSIVE FIXES (MOBILE)                              */
+/* ====================================================== */
+
+@media (max-width: 768px) {
+  .compact-stats-only {
+    padding: 30px 5%; /* Mobile par side padding thodi kam taaki content fit ho */
+    margin-top: 0; /* Mobile par alignment fix karne ke liye */
+  }
+
+  .stats-inline-wrapper {
+    flex-direction: column; /* Aapka original logic waisa hi hai */
+    gap: 30px; /* Stats ke beech ka gap maintain karne ke liye */
+    align-items: center; /* Sab kuch mobile par center dikhega */
+  }
+
+  .stat-blue-text {
+    font-size: 26px; /* Font thoda optimize kiya hai mobile ke liye */
+  }
+
+  .stat-label-gray {
+    font-size: 11px;
+  }
+}

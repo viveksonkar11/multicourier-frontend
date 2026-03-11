@@ -1,0 +1,182 @@
+/* Puray page ka main container */
+.trackon-hero {
+  height: 90vh;
+  /* Image right side mein clear dikhegi */
+  background: url('../bg.jpg') no-repeat center right/cover; 
+  position: relative;
+  overflow: hidden;
+}
+
+/* Halka White Gradient Fade (Trackon Style) */
+.white-gradient-overlay {
+  height: 100%;
+  width: 100%;
+  /* 0.75 opacity se image piche se halki dikhegi aur text saaf rahega */
+  background: linear-gradient(
+    to right, 
+    rgba(255, 255, 255, 0.75) 10%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  padding: 40px 8%; /* Left side se proper space */
+}
+
+/* Text Section: Top-Left alignment */
+.text-content {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.main-title {
+  color: #1a1a1a; /* Dark text for white background */
+  font-size: 52px;
+  line-height: 1.1;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.bold-title {
+  font-weight: 900;
+}
+
+.sub-title {
+  color: #444;
+  font-size: 18px;
+  margin-top: 10px;
+  max-width: 550px;
+}
+
+/* Box Section: Isko thoda upar aur center kiya hai */
+.box-content {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  width: 100%;
+  margin-top: 10px; /* Text ke theek niche balanced rakhne ke liye */
+}
+
+/* Premium Whitish Glass Card */
+.tracking-card-simple {
+  background: rgba(255, 255, 255, 0.9); /* Halka transparent white */
+  backdrop-filter: blur(8px); /* Glass effect */
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 620px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15); /* Soft shadow */
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-sizing: border-box; /* Padding ko width ke andar rakhne ke liye */
+}
+
+/* Input area styling */
+.input-row-original {
+  display: flex;
+  background: #fff;
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.input-field {
+  flex: 1;
+  padding: 18px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Textarea for Multi Tracking */
+textarea.input-field {
+  height: 85px;
+  resize: none;
+}
+
+/* Aapka original Black Track Button */
+.black-track-btn {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 0 45px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.black-track-btn:hover {
+  background: #333;
+}
+
+/* Toggle link blue color */
+.blue-toggle-link {
+  color: #0056b3;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  display: block;
+}
+
+/* ====================================================== */
+/* RESPONSIVE FIXES (MOBILE & TABLET)                    */
+/* ====================================================== */
+
+@media (max-width: 768px) {
+  .trackon-hero {
+    height: auto;
+    min-height: 100vh;
+    background-position: center; /* Mobile par image center mein acchi dikhti hai */
+  }
+
+  .white-gradient-overlay {
+    background: linear-gradient(
+      to bottom, 
+      rgba(255, 255, 255, 0.9) 30%, 
+      rgba(255, 255, 255, 0.5) 100%
+    ); /* Mobile par gradient upar se niche rakha hai */
+    padding: 100px 5% 40px; /* Navbar ke liye upar thoda extra space */
+    align-items: center; /* Mobile par text center karne ke liye */
+  }
+
+  .text-content {
+    text-align: center; /* Mobile par headings center mein achi lagti hain */
+  }
+
+  .main-title {
+    font-size: 32px; /* Choti screen par font thoda chota */
+  }
+
+  .sub-title {
+    font-size: 15px;
+    margin: 10px auto;
+  }
+
+  .tracking-card-simple {
+    padding: 20px;
+    width: 100%; /* Pura width use karega mobile par */
+  }
+
+  .input-row-original {
+    flex-direction: column; /* Input aur Button ek ke niche ek aa jayenge */
+    background: transparent;
+    border: none;
+    gap: 10px;
+  }
+
+  .input-field {
+    width: 100%;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .black-track-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 6px;
+  }
+}

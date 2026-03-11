@@ -1,0 +1,128 @@
+.footer-main-container {
+  background-color: #111111; /* Solid Dark Theme */
+  color: #ffffff;
+  padding: 60px 8% 20px;
+  position: relative;
+  z-index: 50;
+  clear: both;
+}
+
+.footer-content-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section-item {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-brand {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.footer-heading {
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.contact-blue {
+  color: #007bff;
+}
+
+.footer-section-item p {
+  font-size: 14px;
+  color: #bbbbbb;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links-list li {
+  font-size: 14px;
+  color: #bbbbbb;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: 0.3s; /* No red error here */
+}
+
+.footer-links-list li:hover {
+  color: #007bff;
+}
+
+/* Follow Us Row */
+.social-icons-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.social-circle {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #555; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #bbbbbb;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.social-circle:hover {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #ffffff;
+}
+
+.footer-copyright-bar {
+  text-align: center;
+  margin-top: 50px;
+  padding-top: 25px;
+  border-top: 1px solid #222;
+  font-size: 12px;
+  color: #666;
+}
+
+/* ====================================================== */
+/* RESPONSIVE FIXES (MOBILE)                              */
+/* ====================================================== */
+
+@media (max-width: 768px) {
+  .footer-main-container {
+    padding: 40px 5% 20px; /* Mobile par side padding thodi kam */
+  }
+
+  .footer-content-grid {
+    flex-direction: column; /* Aapka original logic */
+    text-align: center;
+    gap: 30px;
+  }
+
+  .footer-section-item {
+    min-width: 100%; /* Mobile par har section puri width lega */
+  }
+
+  .social-icons-row {
+    justify-content: center; /* Icons center mein aa jayenge */
+  }
+
+  .footer-copyright-bar {
+    margin-top: 30px;
+    padding-top: 20px;
+  }
+}

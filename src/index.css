@@ -1,0 +1,35 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f0f4f8;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin: 80px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+}
+
+input {
+  width: auto;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
