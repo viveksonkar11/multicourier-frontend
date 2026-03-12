@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
-// Removed useNavigate to fix ESLint warning
-import { Eye, EyeOff, Trash2, AlertTriangle, X, Menu } from "lucide-react"; 
+// Added missing icons to fix crashes
+import { 
+  Eye, EyeOff, Trash2, AlertTriangle, X, Menu, 
+  LogOut, LayoutDashboard, MapPin, Users, PlusCircle 
+} from "lucide-react"; 
 
 function AdminDashboard() {
   // --- States ---
@@ -49,7 +52,8 @@ function AdminDashboard() {
     if (showModal || showPartnerModal || deleteModal.show) return;
     
     try {
-      const response = await fetch("http://localhost:5000/all-trackings");
+      // Linked to Render Backend
+      const response = await fetch("https://multicourier-backend.onrender.com/all-trackings");
       if (!response.ok) throw new Error("Server down");
       const data = await response.json();
       setShipments(data); 
@@ -62,7 +66,7 @@ function AdminDashboard() {
       }
 
       if(userRole === "Internal Admin") {
-        const pRes = await fetch("http://localhost:5000/all-partners"); 
+        const pRes = await fetch("https://multicourier-backend.onrender.com/all-partners"); 
         if(pRes.ok) {
           const pData = await pRes.json();
           setPartners(pData);
@@ -85,7 +89,7 @@ function AdminDashboard() {
 
   const confirmDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/delete-hub/${deleteModal.id}`, {
+      const response = await fetch(`https://multicourier-backend.onrender.com/delete-hub/${deleteModal.id}`, {
         method: "DELETE",
       });
       if(response.ok) {
@@ -98,7 +102,7 @@ function AdminDashboard() {
   const handleAddPartner = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/register", {
+      const response = await fetch("https://multicourier-backend.onrender.com/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
@@ -122,7 +126,7 @@ function AdminDashboard() {
 
   const handleStatusUpdate = async (trackingNo, newStatus) => {
     try {
-      await fetch(`http://localhost:5000/update-status`, {
+      await fetch(`https://multicourier-backend.onrender.com/update-status`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ trackingNumber: trackingNo, status: newStatus })
@@ -134,7 +138,7 @@ function AdminDashboard() {
   const generateNewID = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/create-tracking", {
+      const response = await fetch("https://multicourier-backend.onrender.com/create-tracking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, bookedBy: userName })
@@ -191,14 +195,14 @@ function AdminDashboard() {
             <p style={{ fontSize: '10px', color: '#fbbf24', margin: 0 }}>{userRole}</p>
         </div>
         
-        <div onClick={() => { setActiveTab("dashboard"); setIsSidebarOpen(false); }} style={{ padding: '15px', cursor: 'pointer', background: activeTab === "dashboard" ? '#334155' : '', borderRadius: '8px', marginBottom: '10px' }}> Dashboard</div>
-        <div onClick={() => { setActiveTab("shipments"); setIsSidebarOpen(false); }} style={{ padding: '15px', cursor: 'pointer', background: activeTab === "shipments" ? '#334155' : '', borderRadius: '8px', marginBottom: '10px' }}> {userRole === "Internal Admin" ? "Global Shipments" : "My Shipments"}</div>
+        <div onClick={() => { setActiveTab("dashboard"); setIsSidebarOpen(false); }} style={{ padding: '15px', cursor: 'pointer', background: activeTab === "dashboard" ? '#334155' : '', borderRadius: '8px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}> <LayoutDashboard size={18} /> Dashboard</div>
+        <div onClick={() => { setActiveTab("shipments"); setIsSidebarOpen(false); }} style={{ padding: '15px', cursor: 'pointer', background: activeTab === "shipments" ? '#334155' : '', borderRadius: '8px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}> <MapPin size={18} /> {userRole === "Internal Admin" ? "Global Shipments" : "My Shipments"}</div>
         
         {userRole === "Internal Admin" && (
-          <div onClick={() => { setActiveTab("manage_partners"); setIsSidebarOpen(false); }} style={{ padding: '15px', cursor: 'pointer', background: activeTab === "manage_partners" ? '#334155' : '', borderRadius: '8px', color: '#fbbf24' }}>👥 Manage Partners</div>
+          <div onClick={() => { setActiveTab("manage_partners"); setIsSidebarOpen(false); }} style={{ padding: '15px', cursor: 'pointer', background: activeTab === "manage_partners" ? '#334155' : '', borderRadius: '8px', color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '10px' }}> <Users size={18} /> Manage Partners</div>
         )}
         
-        <div onClick={handleLogout} style={{ padding: '15px', cursor: 'pointer', color: '#fb7185', marginTop: '20px', borderTop: '1px solid #334155' }}> Logout</div>
+        <div onClick={handleLogout} style={{ padding: '15px', cursor: 'pointer', color: '#fb7185', marginTop: '20px', borderTop: '1px solid #334155', display: 'flex', alignItems: 'center', gap: '10px' }}> <LogOut size={18} /> Logout</div>
       </div>
 
       {/* MAIN CONTENT */}
@@ -235,7 +239,7 @@ function AdminDashboard() {
                   <>
                     <h3 style={{ fontSize: isMobile ? '20px' : '24px' }}>Welcome back, {userName}!</h3>
                     <p style={{ color: '#64748b', marginBottom: '30px', fontSize: '14px' }}>Ready to manage your hub's logistics today?</p>
-                    <button onClick={() => setShowModal(true)} style={{ padding: '18px 30px', background: '#0f172a', color: '#fff', border: 'none', borderRadius: '14px', cursor: 'pointer', fontWeight: 'bold', fontSize: '15px', width: isMobile ? '100%' : 'auto' }}>+ GENERATE NEW ID</button>
+                    <button onClick={() => setShowModal(true)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', margin: '0 auto', padding: '18px 30px', background: '#0f172a', color: '#fff', border: 'none', borderRadius: '14px', cursor: 'pointer', fontWeight: 'bold', fontSize: '15px', width: isMobile ? '100%' : 'auto' }}> <PlusCircle size={20} /> GENERATE NEW ID</button>
                   </>
                 ) : (
                   <p style={{ color: '#475569', fontSize: '18px' }}>Admin Control Panel: Monitor all franchisee activities globally.</p>
@@ -243,7 +247,6 @@ function AdminDashboard() {
             </div>
           </div>
         ) : (
-          /* TABLES WRAPPER FOR SCROLL */
           <div style={{ background: '#fff', padding: isMobile ? '15px' : '30px', borderRadius: '25px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: isMobile ? '800px' : '1000px' }}>
                 <thead>
@@ -328,7 +331,7 @@ function AdminDashboard() {
         )}
       </div>
 
-      {/* --- MODALS (Responsive Widths) --- */}
+      {/* --- MODALS --- */}
       {[
         { show: deleteModal.show, content: (
           <div style={{ background: '#fff', padding: '30px', borderRadius: '20px', width: isMobile ? '90%' : '400px', textAlign: 'center' }}>

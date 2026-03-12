@@ -70,7 +70,7 @@ function ResultPage() {
       // 🕒 2.5 Second pure loading screen ke liye
       await new Promise(resolve => setTimeout(resolve, 2500));
 
-      const res = await fetch("http://localhost:5000/track", {
+      const res = await fetch("https://multicourier-backend.onrender.com/track", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ trackingNumbers }),
