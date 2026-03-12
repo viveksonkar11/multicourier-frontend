@@ -12,8 +12,9 @@ import { Eye, EyeOff } from "lucide-react";
 function Home({ isLoginOpen: externalLoginOpen, setIsLoginOpen: setExternalLoginOpen, setAppLoading }) {
   const [loading, setLoading] = useState(true);
   const [showWarning, setShowWarning] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Naya state loading handle karne ke liye
   
-  // Internal state for login popup (renamed to avoid conflict with props)
+  // Internal state for login popup
   const [isLoginPortalVisible, setIsLoginPortalVisible] = useState(false);
   
   const [captchaCode, setCaptchaCode] = useState(""); 
@@ -61,7 +62,7 @@ function Home({ isLoginOpen: externalLoginOpen, setIsLoginOpen: setExternalLogin
     return () => clearTimeout(loadTimer);
   }, [setAppLoading]);
 
-  // Synching external prop with internal visibility
+  // Synching external prop
   useEffect(() => {
     if (externalLoginOpen) {
       setIsLoginPortalVisible(true);
@@ -89,6 +90,8 @@ function Home({ isLoginOpen: externalLoginOpen, setIsLoginOpen: setExternalLogin
       return;
     }
 
+    setIsSubmitting(true); // Loading shuru
+
     try {
       const response = await axios.post("https://multicourier-backend.onrender.com/login", {
         username: userIdInput,
@@ -110,6 +113,8 @@ function Home({ isLoginOpen: externalLoginOpen, setIsLoginOpen: setExternalLogin
     } catch (err) {
       alert(err.response?.data?.message || "Invalid User ID or Password!");
       generateCaptcha();
+    } finally {
+      setIsSubmitting(false); // Loading khatam
     }
   };
 
@@ -202,7 +207,9 @@ function Home({ isLoginOpen: externalLoginOpen, setIsLoginOpen: setExternalLogin
                 <div style={{ flex: 1, background: "#eee", padding: "12px", textAlign: "center", fontWeight: "bold", border: "1px dashed #999" }}>{captchaCode}</div>
                 <input type="text" placeholder="Captcha" required value={userCaptcha} onChange={(e) => setUserCaptcha(e.target.value)} style={{ flex: 1, padding: "12px", border: "1px solid #ddd", borderRadius: "5px", outline: 'none' }} />
               </div>
-              <button type="submit" style={{ width: "100%", padding: "14px", backgroundColor: "#000", color: "#fff", border: "none", borderRadius: "5px", fontWeight: "bold", cursor: "pointer", marginBottom: "15px" }}>SIGN IN</button>
+              <button type="submit" disabled={isSubmitting} style={{ width: "100%", padding: "14px", backgroundColor: "#000", color: "#fff", border: "none", borderRadius: "5px", fontWeight: "bold", cursor: isSubmitting ? "not-allowed" : "pointer", marginBottom: "15px" }}>
+                {isSubmitting ? "SIGNING IN..." : "SIGN IN"}
+              </button>
               <button type="button" onClick={closeLogin} style={{ width: "100%", padding: "10px", backgroundColor: "transparent", color: "#666", border: "1px solid #ddd", borderRadius: "5px", fontSize: "13px", cursor: "pointer" }}>BACK TO HOME</button>
             </form>
           </div>
