@@ -123,7 +123,7 @@ function AdminDashboard() {
     } catch (err) { alert("Error adding partner"); }
   };
 
-  // --- FIX APPLIED HERE: STATUS UPDATE LOGIC ---
+ 
   const handleStatusUpdate = async (trackingNo, newStatus) => {
     // 1. UI ko turant update karein
     setShipments(prev => 
@@ -139,7 +139,7 @@ function AdminDashboard() {
       
       if (!response.ok) {
         alert("Update failed on server!");
-        fetchAllData(); // Fail hone par database se sahi data layein
+        fetchAllData(); 
       } else {
         console.log("Status updated successfully");
       }
