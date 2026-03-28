@@ -9,7 +9,7 @@ function ResultPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Screen width track karne ke liye state (For Responsiveness)
+  
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function ResultPage() {
   const [openHistory, setOpenHistory] = useState({});
   const [loading, setLoading] = useState(true); 
 
-  // 🛠️ ULTIMATE BACKGROUND FIX: Direct Body Styling
+  // ULTIMATE BACKGROUND FIX: Direct Body Styling
   useEffect(() => {
     document.body.style.backgroundImage = `url(${resultBg})`;
     document.body.style.backgroundSize = "cover";
@@ -67,7 +67,7 @@ function ResultPage() {
         ...(invalid || []),
       ];
 
-      // 🕒 2.5 Second pure loading screen ke liye
+      //  2.5 Second Full loading screen 
       await new Promise(resolve => setTimeout(resolve, 2500));
 
       const res = await fetch("https://multicourier-backend.onrender.com/track", {

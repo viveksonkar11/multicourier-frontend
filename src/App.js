@@ -12,14 +12,14 @@ function App() {
 
   const isDashboardPage = location.pathname === "/dashboard";
 
-  // FIX: Har baar jab URL badle (Logout/Back), loader ko reset karo
+  
   useEffect(() => {
     setIsAppLoading(true);
   }, [location.pathname]);
 
   return (
     <>
-      {/* Navbar tabhi dikhega jab dashboard na ho AUR loading khatam ho chuki ho */}
+      
       {!isDashboardPage && !isAppLoading && (
         <Navbar onLoginClick={() => setIsLoginOpen(true)} />
       )}

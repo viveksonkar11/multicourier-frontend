@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-// Added missing icons to fix crashes
+
 import { 
   Eye, EyeOff, Trash2, AlertTriangle, X, Menu, 
   LogOut, LayoutDashboard, MapPin, Users, PlusCircle 
@@ -33,7 +33,7 @@ function AdminDashboard() {
       if (window.innerWidth > 1024) setIsSidebarOpen(false);
     };
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeResizeListener("resize", handleResize);
   }, []);
 
   // --- Auth logic ---
@@ -52,7 +52,6 @@ function AdminDashboard() {
     if (showModal || showPartnerModal || deleteModal.show) return;
     
     try {
-      // Linked to Render Backend
       const response = await fetch("https://multicourier-backend.onrender.com/all-trackings");
       if (!response.ok) throw new Error("Server down");
       const data = await response.json();
@@ -124,15 +123,30 @@ function AdminDashboard() {
     } catch (err) { alert("Error adding partner"); }
   };
 
+  // --- FIX APPLIED HERE: STATUS UPDATE LOGIC ---
   const handleStatusUpdate = async (trackingNo, newStatus) => {
+    // 1. UI ko turant update karein
+    setShipments(prev => 
+      prev.map(s => s.trackingNumber === trackingNo ? { ...s, status: newStatus } : s)
+    );
+
     try {
-      await fetch(`https://multicourier-backend.onrender.com/update-status`, {
+      const response = await fetch(`https://multicourier-backend.onrender.com/update-status`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ trackingNumber: trackingNo, status: newStatus })
       });
-      fetchAllData(); 
-    } catch (err) { alert("Update failed!"); }
+      
+      if (!response.ok) {
+        alert("Update failed on server!");
+        fetchAllData(); // Fail hone par database se sahi data layein
+      } else {
+        console.log("Status updated successfully");
+      }
+    } catch (err) { 
+      alert("Network Error!"); 
+      fetchAllData();
+    }
   };
 
   const generateNewID = async (e) => {
@@ -309,7 +323,11 @@ function AdminDashboard() {
                             <td style={{ padding: '15px', fontSize: '11px' }}>{new Date(s.createdAt).toLocaleString('en-IN')}</td>
                             {userRole === "Internal Admin" && (
                                 <td style={{ padding: '15px' }}>
-                                    <select style={{ padding: '6px', borderRadius: '6px' }} value={s.status} onChange={(e) => handleStatusUpdate(s.trackingNumber, e.target.value)}>
+                                    <select 
+                                      style={{ padding: '6px', borderRadius: '6px', border: '1px solid #cbd5e1', cursor: 'pointer' }} 
+                                      value={s.status} 
+                                      onChange={(e) => handleStatusUpdate(s.trackingNumber, e.target.value)}
+                                    >
                                         <option value="Booked">Booked</option>
                                         <option value="In Transit">In Transit</option>
                                         <option value="Out for Delivery">Out for Delivery</option> 
@@ -323,9 +341,9 @@ function AdminDashboard() {
                 </tbody>
             </table>
             {activeTab === "manage_partners" && (
-               <div style={{ textAlign: 'center', marginTop: '25px' }}>
-                <button onClick={() => setShowPartnerModal(true)} style={{ padding: '15px 30px', background: '#fbbf24', color: '#000', border: 'none', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', fontSize: '14px', width: isMobile ? '100%' : 'auto' }}>+ ADD NEW HUB</button>
-              </div>
+                <div style={{ textAlign: 'center', marginTop: '25px' }}>
+                 <button onClick={() => setShowPartnerModal(true)} style={{ padding: '15px 30px', background: '#fbbf24', color: '#000', border: 'none', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', fontSize: '14px', width: isMobile ? '100%' : 'auto' }}>+ ADD NEW HUB</button>
+               </div>
             )}
           </div>
         )}

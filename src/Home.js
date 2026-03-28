@@ -12,7 +12,7 @@ import { Eye, EyeOff } from "lucide-react";
 function Home({ isLoginOpen: externalLoginOpen, setIsLoginOpen: setExternalLoginOpen, setAppLoading }) {
   const [loading, setLoading] = useState(true);
   const [showWarning, setShowWarning] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // Naya state loading handle karne ke liye
+  const [isSubmitting, setIsSubmitting] = useState(false); 
   
   // Internal state for login popup
   const [isLoginPortalVisible, setIsLoginPortalVisible] = useState(false);
@@ -90,7 +90,7 @@ function Home({ isLoginOpen: externalLoginOpen, setIsLoginOpen: setExternalLogin
       return;
     }
 
-    setIsSubmitting(true); // Loading shuru
+    setIsSubmitting(true); // Loading Start
 
     try {
       const response = await axios.post("https://multicourier-backend.onrender.com/login", {
@@ -114,7 +114,7 @@ function Home({ isLoginOpen: externalLoginOpen, setIsLoginOpen: setExternalLogin
       alert(err.response?.data?.message || "Invalid User ID or Password!");
       generateCaptcha();
     } finally {
-      setIsSubmitting(false); // Loading khatam
+      setIsSubmitting(false); // Loading End
     }
   };
 
